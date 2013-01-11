@@ -1,8 +1,8 @@
 /************************************
  *
- *  jQuery Popovers by Gary Hepting
+ * jQuery Popovers by Gary Hepting
  *
- ************************************/
+************************************/
 
 (function($) {
   return $.fn.popover = function(options) {
@@ -12,7 +12,9 @@
       click: true,
       resize: true,
       scroll: true,
-      topOffset: 0
+      topOffset: 0,
+      delay: 500,
+      speed: 100
     };
     options = $.extend(defaults, options);
     popover = $('#popover');
@@ -59,10 +61,11 @@
         if (popover.outerWidth() > ($(window).width() - 20)) {
           popover.css('width', $(window).width() - 20);
         }
+        popover.css('max-width', Math.min($(window).width() - parseInt($('body').css('padding-left')) - parseInt($('body').css('padding-right')), parseInt(popover.css('max-width'))));
         width = popover.outerWidth();
         height = popover.outerHeight();
         attrs = {};
-        if ((width + coords.left) < $(window).width()) {
+        if (coords.left <= coords.right) {
           popover.addClass('left');
           attrs.left = coords.left;
         } else {
@@ -106,7 +109,7 @@
       popover.animate({
         top: "+=10",
         opacity: 1
-      }, 100);
+      }, options.speed);
       popover.bind("click", function(e) {
         if (e.target.tagName !== 'a') {
           popover.addClass('sticky');
@@ -152,7 +155,7 @@
             if (!popover.hasClass('sticky')) {
               return delayHide = setTimeout(function() {
                 return closePopover();
-              }, 500);
+              }, options.delay);
             }
           }
         });

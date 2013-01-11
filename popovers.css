@@ -1,0 +1,79 @@
+/* =============================================
+ *         Popovers by Gary Hepting 
+ *          Last Updated:2013-1-11
+ * ===========================================*/
+.popover {
+  display: none;
+}
+
+#popover {
+  box-sizing: border-box;
+  position: absolute;
+  z-index: 10;
+  background: #fff;
+  color: #505050;
+  padding: 15px 18px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 24px 4px rgba(0, 0, 0, 0.4);
+  max-width: 640px;
+}
+#popover .close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+  width: 17px;
+  height: 17px;
+  line-height: 18px;
+  padding: 0;
+  text-align: center;
+  float: right;
+  color: #fff;
+  background: #00aad5;
+  text-decoration: none;
+  font-size: 12px;
+  border-radius: 2px;
+}
+#popover:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+#popover.top.right:after {
+  top: auto;
+  right: 20px;
+  bottom: -10px;
+  left: auto;
+  border-top: 10px solid #fff;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+}
+#popover.top.left:after {
+  top: auto;
+  right: auto;
+  bottom: -10px;
+  left: 20px;
+  border-top: 10px solid #fff;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+}
+#popover.bottom.right:after {
+  top: -10px;
+  right: 20px;
+  bottom: auto;
+  left: auto;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  border-left: 10px solid transparent;
+}
+#popover.bottom.left:after {
+  top: -10px;
+  right: auto;
+  bottom: auto;
+  left: 20px;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+  border-left: 10px solid transparent;
+}

@@ -12,6 +12,8 @@
       resize: true        # resize popovers on window resize/orientation change
       scroll: true        # reposition popovers on scroll
       topOffset: 0        # top offset (accomodate for fixed navigation, etc.)
+      delay: 500          # delay before hiding (ms)
+      speed: 100          # animation speed (ms)
 
     options = $.extend(defaults, options)
 
@@ -54,14 +56,21 @@
         # popover dimensions
         if popover.outerWidth() > ($(window).width() - 20)
           popover.css('width',$(window).width() - 20)
+        # adjust max width of popover
+        popover.css('max-width', 
+          Math.min(
+            ($(window).width()-parseInt($('body').css('padding-left'))-parseInt($('body').css('padding-right'))),
+            parseInt(popover.css('max-width'))
+          )
+        )
         width = popover.outerWidth()
         height = popover.outerHeight()
         # horizontal positioning
         attrs = {}
-        if (width+coords.left) < $(window).width() # left aligned popover (default)
+        if coords.left <= coords.right        # default position
           popover.addClass('left')
           attrs.left = coords.left
-        else # right aligned popover
+        else                                  # pin from right side
           popover.addClass('right')
           attrs.right = coords.right
         # veritcal positioning
@@ -99,7 +108,7 @@
       popover.animate
         top: "+=10"
         opacity: 1
-      , 100
+      , options.speed
 
       # popover click
       popover.bind "click", (e) ->
@@ -147,7 +156,7 @@
               # delay closing popover
               delayHide = setTimeout ->
                 closePopover()          #close popover
-              , 500
+              , options.delay
 
       if options.click
         # click trigger element
@@ -165,6 +174,7 @@
         # handle viewport resize
         $(window).resize ->
           clearTimeout(delayAdjust)   # cancel delayed adjustment
+          # attempt to wait until user finishes resizing the window
           delayAdjust = setTimeout ->
             setPosition(trigger, true, true)
           , 100
