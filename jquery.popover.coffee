@@ -112,7 +112,7 @@
 
       # popover click
       popover.bind "click", (e) ->
-        if(e.target.tagName != 'a')
+        if(e.target.tagName != 'A')
           popover.addClass('sticky')
           e.stopPropagation()
           e.preventDefault()
